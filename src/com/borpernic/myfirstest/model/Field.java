@@ -1,6 +1,7 @@
 package com.borpernic.myfirstest.model;
 
 import com.borpernic.myfirstest.model.TestExeption.InvalidPointExeption;
+import com.borpernic.myfirstest.model.TestExeption.PointAlreadyOccupied;
 
 import java.awt.*;
 
@@ -15,13 +16,14 @@ public class Field {
 
     public Figure getFigure(final Point point)
             throws InvalidPointExeption {
-        if (!chkPoint(point)) new InvalidPointExeption();
+        if (!chkPoint(point)) {throw new InvalidPointExeption()};
         return figures[point.x][point.y];
     }
 
     public void setFigure(final Point point, final Figure figure)
-            throws InvalidPointExeption {
-        if (!chkPoint(point)) new InvalidPointExeption();
+            throws InvalidPointExeption, PointAlreadyOccupied {
+        if (!chkPoint(point)) {throw new InvalidPointExeption();}
+        if (getFigure(point)!= null) {throw new PointAlreadyOccupied();}
         this.figures[point.x][point.y] = figure;
     }
 
@@ -31,7 +33,7 @@ public class Field {
 
     private boolean chkPoint(Point point) {
         if (point.x < 0 || point.x >= FIELD_SIZE) return false;
-        if (point.y < 0 || point.y >= FIELD_SIZE) return false;
+            if (point.y < 0 || point.y >= FIELD_SIZE) return false;
         return true;
     }
 }
