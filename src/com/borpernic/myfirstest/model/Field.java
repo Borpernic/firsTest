@@ -1,5 +1,7 @@
 package com.borpernic.myfirstest.model;
 
+import com.borpernic.myfirstest.model.TestExeption.InvalidPointExeption;
+
 import java.awt.*;
 
 /**
@@ -11,11 +13,15 @@ public class Field {
     private final Figure[][] figures = new Figure[FIELD_SIZE][FIELD_SIZE];
 
 
-    public Figure getFigure(final Point point) {
+    public Figure getFigure(final Point point)
+            throws InvalidPointExeption {
+        if (!chkPoint(point)) new InvalidPointExeption();
         return figures[point.x][point.y];
     }
 
-    public void setFigure(final Point point, final Figure figure) {
+    public void setFigure(final Point point, final Figure figure)
+            throws InvalidPointExeption {
+        if (!chkPoint(point)) new InvalidPointExeption();
         this.figures[point.x][point.y] = figure;
     }
 
